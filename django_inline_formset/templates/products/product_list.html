@@ -1,0 +1,17 @@
+<!-- product_list.html -->
+{% extends "base.html" %}
+
+
+{% block content %}
+    <div class="card">
+        <div class="card-header card-header-secondary">
+            <h4 class="card-title">Products</h4>
+            <a href="{% url 'products:create_product' %}">Add more products</a>
+        </div>
+        <ul>
+            {% for product in products %}
+                <li class="card-body">{{ product.title }} | <a href="{% url 'products:update_product' product.id %}">Edit</a></li>
+            {% endfor %}
+        </ul>
+    </div>
+{% endblock content %}
