@@ -43,6 +43,9 @@ class ProductInline():
         Hook for custom formset saving.. useful if you have multiple formsets
         """
         variants = formset.save(commit=False)  # self.save_formset(formset, contact)
+        # add this, if you have can_delete=True parameter set in inlineformset_factory func
+        for obj in formset.deleted_objects:
+            obj.delete()
         for variant in variants:
             variant.product = self.object
             variant.save()
@@ -52,6 +55,9 @@ class ProductInline():
         Hook for custom formset saving.. useful if you have multiple formsets
         """
         images = formset.save(commit=False)  # self.save_formset(formset, contact)
+        # add this, if you have can_delete=True parameter set in inlineformset_factory func
+        for obj in formset.deleted_objects:
+            obj.delete()
         for image in images:
             image.product = self.object
             image.save()
