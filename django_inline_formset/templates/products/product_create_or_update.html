@@ -59,6 +59,10 @@
                     <th>Custom Delete btn</th>
                 </thead>
                 <tbody id="item-images">  <!-- id="item-inlineformsetname" -->
+                    <!-- formset non forms errors -->
+                    {% for error in formset.non_form_errors %}
+                        <span style="color: red">{{ error }}</span>
+                    {% endfor %}
                     {% for formss in formset %}
                         {{ formss.management_form }}
                         <tr id="images-{{ forloop.counter0 }}" class= hide_all>  <!-- id="inlineformsetname-counter" -->
@@ -137,6 +141,10 @@
                     <th>Custom Delete btn</th>
                 </thead>
                 <tbody id="item-variants">  <!-- id="item-inlineformsetname" -->
+                    <!-- formset non forms errors -->
+                    {% for error in formset.non_form_errors %}
+                        <span style="color: red">{{ error }}</span>
+                    {% endfor %}
                     {% for formss in formset %}
                         {{ formss.management_form }}
                         <tr id="variants-{{ forloop.counter0 }}" class= hide_all>  <!-- id="inlineformsetname-counter" -->
