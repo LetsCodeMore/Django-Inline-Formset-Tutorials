@@ -60,11 +60,11 @@ class VariantForm(forms.ModelForm):
 
 VariantFormSet = inlineformset_factory(
     Product, Variant, form=VariantForm,
-    extra=1, can_delete=True,
+    extra=0, can_delete=True,
     can_delete_extra=True
 )
 ImageFormSet = inlineformset_factory(
     Product, Image, form=ImageForm,
-    extra=1, can_delete=True,
+    extra=0, can_delete=True,
     can_delete_extra=True
 )

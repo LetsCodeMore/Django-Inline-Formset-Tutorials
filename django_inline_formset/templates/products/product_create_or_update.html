@@ -37,7 +37,7 @@
     {% with named_formsets.images as formset %}  
         {{ formset.management_form }}
         <script type="text/html" id="images-template">   // id="inlineformsetname-template"
-            <tr id="images-__prefix__" class= hide_all>  // id="inlineformsetname-__prefix__"
+            <tr id="images-__prefix__"> 
                 {% for fields in formset.empty_form.hidden_fields %}
                     {{ fields }}
                 {% endfor %}
@@ -45,6 +45,9 @@
                 {% for fields in formset.empty_form.visible_fields %}
                     <td>{{fields}}</td>
                 {% endfor %}
+                <td>
+                    <button type="button" class="btn btn-danger remove-image">Remove</button>
+                </td>
             </tr>
         </script>
 
@@ -98,6 +101,10 @@
                                         </div>
                                         </div>
                                     </div>
+                                </td>
+                                {% else %}
+                                <td>
+                                    <button type="button" class="btn btn-danger remove-image">Remove</button>
                                 </td>            
                             {% endif %}
                         </tr>
@@ -116,9 +123,8 @@
     <!-- Note: here variants is our VariantFormSet name, used in get_named_formsets function in views.py -->
     {% with named_formsets.variants as formset %}
         {{ formset.management_form }}
-        <script type="text/html" id="variants-template">  // id="inlineformsetname-template"
-            // id='inlineformsetname-__prefix__' 
-            <tr id="variants-__prefix__" class= hide_all>
+        <script type="text/html" id="variants-template">
+            <tr id="variants-__prefix__">
                 {% for fields in formset.empty_form.hidden_fields %}
                     {{ fields }}
                 {% endfor %}
@@ -126,6 +132,9 @@
                 {% for fields in formset.empty_form.visible_fields %}
                     <td>{{fields}}</td>
                 {% endfor %}
+                <td>
+                    <button type="button" class="btn btn-danger remove-variant">Remove</button>
+                </td>
             </tr>
         </script>
         <div class="table-responsive card mt-4">
@@ -147,7 +156,7 @@
                     {% endfor %}
                     {% for formss in formset %}
                         {{ formss.management_form }}
-                        <tr id="variants-{{ forloop.counter0 }}" class= hide_all>  <!-- id="inlineformsetname-counter" -->
+                        <tr id="variants-{{ forloop.counter0 }}">  <!-- id="inlineformsetname-counter" -->
                             {{ formss.id }}
                             {% for field in formss.visible_fields %}
                                 <td>
@@ -182,6 +191,10 @@
                                         </div>
                                         </div>
                                     </div>
+                                </td>
+                                {% else %}
+                                <td>
+                                    <button type="button" class="btn btn-danger remove-variant">Remove</button>
                                 </td>            
                             {% endif %}
                         </tr>
@@ -192,7 +205,7 @@
         </div>
         
         {% endwith %}
-        <!-- inline form for Images end -->
+        <!-- inline form for Variant end -->
 
         <div class="form-group">
             <button type="submit" class="btn btn-secondary btn-block">Submit</button>
@@ -214,6 +227,15 @@
           // update form count
           $('#id_images-TOTAL_FORMS').attr('value', count+1);
       });
+      // when user clicks remove btn of images
+      $('#item-images').on('click', '.remove-image', function(ev) {
+          ev.preventDefault();
+          $(this).closest('tr').remove();
+
+          // update form count
+          var count = $('#item-images').children().length;
+          $('#id_images-TOTAL_FORMS').attr('value', count);
+      });
   });
 
   $(document).ready(function() {
@@ -228,6 +250,15 @@
           // update form count
           $('#id_variants-TOTAL_FORMS').attr('value', count+1);
       });
+      // when user clicks remove btn of variants
+    $('#item-variants').on('click', '.remove-variant', function(ev) {
+        ev.preventDefault();
+        $(this).closest('tr').remove();
+
+        // update form count
+        var count = $('#item-variants').children().length;
+        $('#id_variants-TOTAL_FORMS').attr('value', count);
+    });
   });
 </script>
         
